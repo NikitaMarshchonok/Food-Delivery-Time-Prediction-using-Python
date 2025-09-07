@@ -1,7 +1,7 @@
 # Food Delivery Time Prediction (Python)
 
-Accurately predicting delivery time helps food delivery apps keep customer expectations realistic and optimize logistics.  
-This project builds an end-to-end **ML regression** pipeline in a Jupyter notebook to predict the **time taken (minutes)** using rider and order features.
+> Predicting delivery time (minutes) for food orders using rider/order features and the **Haversine** distance between restaurant and destination.  
+> Built in a single Jupyter notebook with clear EDA and a compact Keras model.
 
 <p align="center">
   <img src="pic/1.png" alt="Distance vs Time" width="85%">
@@ -9,8 +9,15 @@ This project builds an end-to-end **ML regression** pipeline in a Jupyter notebo
 
 ---
 
+<p align="left">
+  <img src="https://img.shields.io/badge/Python-3.9%2B-blue?logo=python" />
+  <img src="https://img.shields.io/badge/Jupyter-Notebook-orange?logo=jupyter" />
+  <img src="https://img.shields.io/badge/TensorFlow-keras-yellow?logo=tensorflow" />
+  <img src="https://img.shields.io/badge/Scikit--learn-ML-green?logo=scikitlearn" />
+</p>
+
 ## Table of Contents
-- [Project Overview](#project-overview)
+- [Overview](#overview)
 - [Dataset](#dataset)
 - [Repository Structure](#repository-structure)
 - [Exploratory Analysis](#exploratory-analysis)
@@ -22,26 +29,31 @@ This project builds an end-to-end **ML regression** pipeline in a Jupyter notebo
 
 ---
 
-## Project Overview
-We predict delivery time using:
-- **Distance** between restaurant and destination (computed with the **Haversine** formula from lat/long),
-- **Delivery partner Age** and **Ratings**,
-- plus categorical context (vehicle / order type) explored in EDA.
-
-The current baseline is a simple **Keras LSTM → Dense** regressor trained on engineered features.
+## Overview
+- Target: **`Time_taken(min)`** — total minutes for a delivery.  
+- Main features:
+  - **Distance** (km) between restaurant and destination computed via **Haversine** from lat/long,
+  - **Delivery partner**: `Age`, `Ratings`,
+  - Context inspected in EDA: `Type_of_vehicle`, `Type_of_order`.
+- Baseline model: **Keras** `LSTM → LSTM → Dense → Dense(1)` regressor.
 
 ---
 
 ## Dataset
-- File: `Delivery time/deliverytime.txt` (CSV-like text with headers)
-- Key columns:  
-  `Delivery_person_Age`, `Delivery_person_Ratings`,  
-  `Restaurant_latitude`, `Restaurant_longitude`,  
-  `Delivery_location_latitude`, `Delivery_location_longitude`,  
-  `Type_of_order`, `Type_of_vehicle`, `Time_taken(min)`
-- A new feature **`distance`** is computed from coordinates.
+- File: `Delivery time/deliverytime.txt` (CSV-like text with headers).
+- Important columns:
+  - Rider: `Delivery_person_Age`, `Delivery_person_Ratings`
+  - Geo: `Restaurant_latitude/longitude`, `Delivery_location_latitude/longitude`
+  - Meta: `Type_of_order`, `Type_of_vehicle`
+  - Target: `Time_taken(min)`
+- Engineered feature: **`distance`** (km) computed from coordinates.
 
-> If you use your own data, keep column names or adapt paths/cell code in the notebook.
+> Using your own data? Keep column names or adjust paths in the notebook.
+
+---
+
+## Repository Structure
+
 
 ---
 
